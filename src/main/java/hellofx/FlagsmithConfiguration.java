@@ -3,6 +3,7 @@ package hellofx;
 import com.flagsmith.FeatureUser;
 import com.flagsmith.FlagsAndTraits;
 import com.flagsmith.FlagsmithClient;
+import com.flagsmith.FlagsmithLoggerLevel;
 import com.flagsmith.Trait;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,6 +21,7 @@ public class FlagsmithConfiguration {
         .newBuilder()
         .setApiKey("7QqkWrLp5sK9S7kHRrA4RH")
         .withApiUrl("http://localhost:8000/api/v1/")
+        .enableLogging(FlagsmithLoggerLevel.INFO)
         .enableLogging()
         .build();
 
@@ -30,7 +32,6 @@ public class FlagsmithConfiguration {
     this.updateUserTrait("country", COUNTRY);
 
     userFlagsAndTraits = this.flagsmithClient.getUserFlagsAndTraits(user);
-    System.out.println(EMAIL + " " + userFlagsAndTraits);
   }
 
   public String getEmail() {
