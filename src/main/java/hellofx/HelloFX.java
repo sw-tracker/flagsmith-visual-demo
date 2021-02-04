@@ -1,10 +1,8 @@
 package hellofx;
 
-import com.flagsmith.FlagsmithClient;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class HelloFX extends Application {
@@ -16,7 +14,7 @@ public class HelloFX extends Application {
     this.flagsmithConfiguration = new FlagsmithConfiguration();
 
     // The scene which is the "root" of our application
-    Scene scene = new Scene(MainPage.getHolder(
+    Scene scene = new Scene(MainPage.getGrid(
         this.flagsmithConfiguration.getEmail(),
         this.flagsmithConfiguration.getColour(),
         this.flagsmithConfiguration.getCountry()
