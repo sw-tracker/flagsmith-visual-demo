@@ -21,7 +21,7 @@ public class FlagsmithConfiguration {
         .newBuilder()
         .setApiKey("7QqkWrLp5sK9S7kHRrA4RH")
         .withApiUrl("http://localhost:8000/api/v1/")
-        .enableLogging(FlagsmithLoggerLevel.INFO)
+        .enableLogging(FlagsmithLoggerLevel.ERROR)
         .enableLogging()
         .build();
 
@@ -31,6 +31,10 @@ public class FlagsmithConfiguration {
     this.updateUserTrait("email", EMAIL);
     this.updateUserTrait("country", COUNTRY);
 
+    this.getUserFlagsAndTraits();
+  }
+
+  public void getUserFlagsAndTraits() {
     userFlagsAndTraits = this.flagsmithClient.getUserFlagsAndTraits(user);
   }
 
@@ -56,5 +60,9 @@ public class FlagsmithConfiguration {
     trait.setKey(key);
     trait.setValue(value);
     this.flagsmithClient.updateTrait(this.user, trait);
+  }
+
+  public boolean getUpdateButtonEnabled() {
+    return this.flagsmithClient.hasFeatureFlag("update_button", this.userFlagsAndTraits);
   }
 }

@@ -8,12 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.NotNull;
 
 public class MainPage {
 
   private static GridPane grid;
+  private static Button button;
 
-  public static GridPane getGrid(String email, String colour, String country) {
+  public static GridPane getGrid(String email, String colour, String country, boolean updateButtonEnabled) {
     grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
     grid.setHgap(10);
@@ -33,21 +35,33 @@ public class MainPage {
     grid.add(moneyField, 1, 3);
 
     // Button to have some interaction
-    Button button = new Button("Update");
+    button = new Button("Update Traits");
     button.setStyle("-fx-text-fill: black; -fx-font-size: 14px;");
-    EventHandler<ActionEvent> onButtonClicked = e -> {
-      System.out.println("Button clicked");
-      grid.setStyle("-fx-background-color: black");
-    };
-    button.setOnAction(onButtonClicked);
+    setUpdateTraitsButtonVisible(false);
+    button.setOnAction(getActionButtonClickedEventEventHandler());
     grid.add(button, 1, 4);
 
     return grid;
+  }
+
+  @NotNull
+  private static EventHandler<ActionEvent> getActionButtonClickedEventEventHandler() {
+    return e -> {
+      System.out.println("Button clicked" + e);
+    };
   }
 
   private static Label createLabel(String content) {
     final Label lbl = new Label(content);
     lbl.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-min-width: 60px");
     return lbl;
+  }
+
+  public static void setGridColor(String color) {
+    grid.setStyle("-fx-background-color: " + color);
+  }
+
+  public static void setUpdateTraitsButtonVisible(boolean enabled) {
+    button.setVisible(enabled);
   }
 }

@@ -2,8 +2,10 @@ package hellofx;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HelloFX extends Application {
 
@@ -17,13 +19,27 @@ public class HelloFX extends Application {
     Scene scene = new Scene(MainPage.getGrid(
         this.flagsmithConfiguration.getEmail(),
         this.flagsmithConfiguration.getColour(),
-        this.flagsmithConfiguration.getCountry()
+        this.flagsmithConfiguration.getCountry(),
+        this.flagsmithConfiguration.getUpdateButtonEnabled()
     ), 200, 150);
 
     // The top level JavaJX container
     stage.setTitle("Demo");
     stage.setScene(scene);
     stage.show();
+    refreshFlags();
+  }
+
+  private void refreshFlags() {
+    final int DELAY_MS = 1000;
+    final int PERIOD_MS = 1000;
+    new Timer().scheduleAtFixedRate(new TimerTask() {
+      public void run() {
+        flagsmithConfiguration.getUserFlagsAndTraits();
+        MainPage.setGridColor(flagsmithConfiguration.getColour());
+        MainPage.setUpdateTraitsButtonVisible(flagsmithConfiguration.getUpdateButtonEnabled());
+      }
+    }, DELAY_MS, PERIOD_MS);
   }
 
   public static void main(String[] args) {
