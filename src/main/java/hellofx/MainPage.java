@@ -37,7 +37,7 @@ public class MainPage {
     // Button to have some interaction
     button = new Button("Update Traits");
     button.setStyle("-fx-text-fill: black; -fx-font-size: 14px;");
-    setUpdateTraitsButtonVisible(false);
+    setUpdateTraitsButtonVisible(updateButtonEnabled);
     button.setOnAction(getActionButtonClickedEventEventHandler());
     grid.add(button, 1, 4);
 

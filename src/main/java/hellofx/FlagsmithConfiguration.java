@@ -11,12 +11,15 @@ public class FlagsmithConfiguration {
 
   private final FlagsmithClient flagsmithClient;
   private final FeatureUser user;
-  private final String EMAIL = "a@a.com";
-  private final String COUNTRY = "DE";
+  private final String EMAIL;
+  private final String COUNTRY;
   private final String DEFAULT_BACKGROUND_COLOUR = "red";
   private FlagsAndTraits userFlagsAndTraits;
 
-  public FlagsmithConfiguration() {
+  public FlagsmithConfiguration(int id) throws Exception {
+    this.EMAIL = InitialData.getEmail(id);
+    this.COUNTRY = InitialData.getCountry(id);
+
     this.flagsmithClient = FlagsmithClient
         .newBuilder()
         .setApiKey("7QqkWrLp5sK9S7kHRrA4RH")

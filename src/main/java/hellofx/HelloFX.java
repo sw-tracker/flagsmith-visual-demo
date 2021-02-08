@@ -7,13 +7,24 @@ import javafx.stage.Stage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static hellofx.InitialData.WINDOW_HEIGHT;
+import static hellofx.InitialData.WINDOW_WIDTH;
+import static hellofx.InitialData.getInitialX;
+import static hellofx.InitialData.getInitialY;
+
 public class HelloFX extends Application {
 
   private FlagsmithConfiguration flagsmithConfiguration;
 
   @Override
-  public void start(Stage stage) {
-    this.flagsmithConfiguration = new FlagsmithConfiguration();
+  public void start(Stage stage) throws Exception {
+    String rawId = getParameters().getNamed().get("id");
+    int id = 1;
+    if (rawId != null) {
+      id = Integer.parseInt(rawId);
+    }
+
+    this.flagsmithConfiguration = new FlagsmithConfiguration(id);
 
     // The scene which is the "root" of our application
     Scene scene = new Scene(MainPage.getGrid(
@@ -21,11 +32,13 @@ public class HelloFX extends Application {
         this.flagsmithConfiguration.getColour(),
         this.flagsmithConfiguration.getCountry(),
         this.flagsmithConfiguration.getUpdateButtonEnabled()
-    ), 200, 150);
+    ), WINDOW_WIDTH, WINDOW_HEIGHT);
 
     // The top level JavaJX container
     stage.setTitle("Demo");
     stage.setScene(scene);
+    stage.setX(getInitialX(id));
+    stage.setY(getInitialY(id));
     stage.show();
     refreshFlags();
   }
@@ -43,7 +56,7 @@ public class HelloFX extends Application {
   }
 
   public static void main(String[] args) {
-    launch();
+    launch(args);
   }
 
 }
