@@ -68,4 +68,12 @@ public class FlagsmithConfiguration {
   public boolean getUpdateButtonEnabled() {
     return this.flagsmithClient.hasFeatureFlag("update_button", this.userFlagsAndTraits);
   }
+
+  public boolean getMoneySpentEnabled() {
+    return this.flagsmithClient.hasFeatureFlag("money_spent", this.userFlagsAndTraits);
+  }
+
+  public boolean getGeolocationEnabled() {
+    return this.flagsmithClient.hasFeatureFlag("geolocation", this.userFlagsAndTraits);
+  }
 }

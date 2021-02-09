@@ -31,7 +31,9 @@ public class HelloFX extends Application {
         this.flagsmithConfiguration.getEmail(),
         this.flagsmithConfiguration.getColour(),
         this.flagsmithConfiguration.getCountry(),
-        this.flagsmithConfiguration.getUpdateButtonEnabled()
+        this.flagsmithConfiguration.getUpdateButtonEnabled(),
+        this.flagsmithConfiguration.getMoneySpentEnabled(),
+        this.flagsmithConfiguration.getGeolocationEnabled()
     ), WINDOW_WIDTH, WINDOW_HEIGHT);
 
     // The top level JavaJX container
@@ -51,8 +53,10 @@ public class HelloFX extends Application {
         flagsmithConfiguration.getUserFlagsAndTraits();
         MainPage.setGridColor(flagsmithConfiguration.getColour());
         MainPage.setUpdateTraitsButtonVisible(flagsmithConfiguration.getUpdateButtonEnabled());
+        MainPage.setMoneyVisible(flagsmithConfiguration.getMoneySpentEnabled());
+        MainPage.setCountryVisible(flagsmithConfiguration.getGeolocationEnabled());
       }
-    }, DELAY_MS + (id * 60), PERIOD_MS);
+    }, DELAY_MS + (id * 50), PERIOD_MS);
   }
 
   public static void main(String[] args) {

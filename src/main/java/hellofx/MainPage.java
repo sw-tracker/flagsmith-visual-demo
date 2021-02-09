@@ -14,8 +14,13 @@ public class MainPage {
 
   private static GridPane grid;
   private static Button button;
+  private static Label moneyLabel;
+  private static TextField moneyField;
+  private static Label countryLabel;
+  private static TextField countryField;
 
-  public static GridPane getGrid(String email, String colour, String country, boolean updateButtonEnabled) {
+  public static GridPane getGrid(String email, String colour, String country, boolean updateButtonEnabled,
+                                 boolean moneySpentEnabled, boolean geolocationEnabled) {
     grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
     grid.setHgap(10);
@@ -26,13 +31,17 @@ public class MainPage {
     grid.add(createLabel("Email:"), 0, 1);
     grid.add(createLabel(email), 1, 1);
 
-    grid.add(createLabel("Country:"), 0, 2);
-    TextField countryField = new TextField(country);
+    countryLabel = createLabel("Country:");
+    grid.add(countryLabel, 0, 2);
+    countryField = new TextField(country);
     grid.add(countryField, 1, 2);
+    setCountryVisible(geolocationEnabled);
 
-    grid.add(createLabel("Money:"), 0, 3);
-    TextField moneyField = new TextField("1000");
+    moneyLabel = createLabel("Money:");
+    grid.add(moneyLabel, 0, 3);
+    moneyField = new TextField("1000");
     grid.add(moneyField, 1, 3);
+    setMoneyVisible(moneySpentEnabled);
 
     // Button to have some interaction
     button = new Button("Update Traits");
@@ -65,5 +74,15 @@ public class MainPage {
 
   public static void setUpdateTraitsButtonVisible(boolean enabled) {
     button.setVisible(enabled);
+  }
+
+  public static void setMoneyVisible(boolean enabled) {
+    moneyLabel.setVisible(enabled);
+    moneyField.setVisible(enabled);
+  }
+
+  public static void setCountryVisible(boolean enabled) {
+    countryLabel.setVisible(enabled);
+    countryField.setVisible(enabled);
   }
 }

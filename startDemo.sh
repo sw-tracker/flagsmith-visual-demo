@@ -1,7 +1,7 @@
 #!/bin/sh
 mvn compile package
 
-for((i=1; i<=15; i++))
+for((i=1; i<=21; i++))
 do
   echo "Starting java program $i"
   java -jar shade/hellofx.jar --id=$i &
