@@ -40,10 +40,10 @@ public class HelloFX extends Application {
     stage.setX(getInitialX(id));
     stage.setY(getInitialY(id));
     stage.show();
-    refreshFlags();
+    refreshFlags(id);
   }
 
-  private void refreshFlags() {
+  private void refreshFlags(int id) {
     final int DELAY_MS = 1000;
     final int PERIOD_MS = 1000;
     new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -52,7 +52,7 @@ public class HelloFX extends Application {
         MainPage.setGridColor(flagsmithConfiguration.getColour());
         MainPage.setUpdateTraitsButtonVisible(flagsmithConfiguration.getUpdateButtonEnabled());
       }
-    }, DELAY_MS, PERIOD_MS);
+    }, DELAY_MS + (id * 60), PERIOD_MS);
   }
 
   public static void main(String[] args) {

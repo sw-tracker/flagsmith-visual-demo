@@ -13,8 +13,8 @@ public class FlagsmithConfiguration {
   private final FeatureUser user;
   private final String EMAIL;
   private final String COUNTRY;
-  private final String DEFAULT_BACKGROUND_COLOUR = "red";
   private FlagsAndTraits userFlagsAndTraits;
+  private String lastColor = "blue";
 
   public FlagsmithConfiguration(int id) throws Exception {
     this.EMAIL = InitialData.getEmail(id);
@@ -48,9 +48,9 @@ public class FlagsmithConfiguration {
   public String getColour() {
     final String backgroundColour = this.flagsmithClient.getFeatureFlagValue("background_colour", this.userFlagsAndTraits);
     if (StringUtils.isNotBlank(backgroundColour)) {
-      return backgroundColour;
+      lastColor = backgroundColour;
     }
-    return DEFAULT_BACKGROUND_COLOUR;
+    return lastColor;
   }
 
   public String getCountry() {

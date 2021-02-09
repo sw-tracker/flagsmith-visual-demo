@@ -58,7 +58,9 @@ public class MainPage {
   }
 
   public static void setGridColor(String color) {
-    grid.setStyle("-fx-background-color: " + color);
+    if (color != null) {
+      grid.setStyle("-fx-background-color: " + color);
+    }
   }
 
   public static void setUpdateTraitsButtonVisible(boolean enabled) {
