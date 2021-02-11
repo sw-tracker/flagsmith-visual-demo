@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainPage {
 
+  private static int FONT_SIZE = 16;
+
   private static GridPane grid;
   private static Button button;
   private static Label moneyLabel;
@@ -45,7 +47,7 @@ public class MainPage {
 
     // Button to have some interaction
     button = new Button("Update Traits");
-    button.setStyle("-fx-text-fill: black; -fx-font-size: 14px;");
+    button.setStyle("-fx-text-fill: black; -fx-font-size: " + FONT_SIZE + "px;");
     setUpdateTraitsButtonVisible(updateButtonEnabled);
     button.setOnAction(getActionButtonClickedEventEventHandler());
     grid.add(button, 1, 4);
@@ -62,7 +64,7 @@ public class MainPage {
 
   private static Label createLabel(String content) {
     final Label lbl = new Label(content);
-    lbl.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-min-width: 60px");
+    lbl.setStyle("-fx-text-fill: white; -fx-font-size: " + FONT_SIZE + "px; -fx-min-width: 60px");
     return lbl;
   }
 

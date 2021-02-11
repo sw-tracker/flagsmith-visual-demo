@@ -2,7 +2,7 @@ package hellofx;
 
 public class InitialData {
 
-  public static final int WINDOW_WIDTH = 200;
+  public static final int WINDOW_WIDTH = 250;
   public static final int WINDOW_HEIGHT = 170;
   public static final int H_OFFSET = -3430;
   public static final int V_OFFSET = 70;
