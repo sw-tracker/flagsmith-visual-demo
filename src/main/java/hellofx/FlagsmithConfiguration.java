@@ -57,6 +57,11 @@ public class FlagsmithConfiguration {
     return COUNTRY;
   }
 
+  public void update(String country, String money) {
+    this.updateUserTrait("country", country);
+    this.updateUserTrait("money", money);
+  }
+
   private void updateUserTrait(String key, String value) {
     final Trait trait = new Trait();
     trait.setIdentity(this.user);

@@ -21,6 +21,9 @@ public class MainPage {
   private static Label countryLabel;
   private static TextField countryField;
 
+  private static String id;
+  private static TraitsConsumer buttonClickConsumer;
+
   public static GridPane getGrid(String email, String colour, String country, boolean updateButtonEnabled,
                                  boolean moneySpentEnabled, boolean geolocationEnabled) {
     grid = new GridPane();
@@ -32,6 +35,7 @@ public class MainPage {
 
     grid.add(createLabel("Email:"), 0, 1);
     grid.add(createLabel(email), 1, 1);
+    id = email;
 
     countryLabel = createLabel("Country:");
     grid.add(countryLabel, 0, 2);
@@ -58,7 +62,8 @@ public class MainPage {
   @NotNull
   private static EventHandler<ActionEvent> getActionButtonClickedEventEventHandler() {
     return e -> {
-      System.out.println("Button clicked" + e);
+      buttonClickConsumer.update(countryField.getText(), moneyField.getText());
+      System.out.println("Traits updated for: " + id + " [country=" + countryField.getText() + ", money=" + moneyField.getText() + "]");
     };
   }
 
@@ -86,5 +91,9 @@ public class MainPage {
   public static void setCountryVisible(boolean enabled) {
     countryLabel.setVisible(enabled);
     countryField.setVisible(enabled);
+  }
+
+  public static void setButtonClickConsumer(TraitsConsumer buttonClickConsumer) {
+    MainPage.buttonClickConsumer = buttonClickConsumer;
   }
 }

@@ -1,5 +1,6 @@
 package hellofx;
 
+import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -7,6 +8,7 @@ import javafx.stage.Stage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static hellofx.InitialData.TOTAL_USERS;
 import static hellofx.InitialData.WINDOW_HEIGHT;
 import static hellofx.InitialData.WINDOW_WIDTH;
 import static hellofx.InitialData.getInitialX;
@@ -25,6 +27,13 @@ public class HelloFX extends Application {
     }
 
     this.flagsmithConfiguration = new FlagsmithConfiguration(id);
+
+    MainPage.setButtonClickConsumer(new TraitsConsumer() {
+      @Override
+      public void update(String country, String money) {
+        flagsmithConfiguration.update(country, money);
+      }
+    });
 
     // The scene which is the "root" of our application
     Scene scene = new Scene(MainPage.getGrid(
@@ -47,7 +56,8 @@ public class HelloFX extends Application {
 
   private void refreshFlags(int id) {
     final int DELAY_MS = 1000;
-    final int PERIOD_MS = 1000;
+    final int MIN_MS_BETWEEN = 50;
+    final int PERIOD_MS = TOTAL_USERS + MIN_MS_BETWEEN;
     new Timer().scheduleAtFixedRate(new TimerTask() {
       public void run() {
         flagsmithConfiguration.getUserFlagsAndTraits();
@@ -56,7 +66,7 @@ public class HelloFX extends Application {
         MainPage.setMoneyVisible(flagsmithConfiguration.getMoneySpentEnabled());
         MainPage.setCountryVisible(flagsmithConfiguration.getGeolocationEnabled());
       }
-    }, DELAY_MS + (id * 50), PERIOD_MS);
+    }, DELAY_MS + (id * MIN_MS_BETWEEN), PERIOD_MS);
   }
 
   public static void main(String[] args) {

@@ -9,6 +9,7 @@ public class InitialData {
   public static final int COLUMNS = 3;
   public static final int ROWS = 7;
   public static final int HEADER_SIZE = 33;
+  public static final int TOTAL_USERS = COLUMNS * ROWS;
 
   public static String getEmail(int id) {
     return id + "@a.com";
