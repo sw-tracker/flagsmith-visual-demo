@@ -7,6 +7,11 @@ import com.flagsmith.FlagsmithLoggerLevel;
 import com.flagsmith.Trait;
 import org.apache.commons.lang3.StringUtils;
 
+import static hellofx.FlagsEnum.BACKGROUND_COLOUR;
+import static hellofx.FlagsEnum.GEOLOCATION;
+import static hellofx.FlagsEnum.MONEY_SPENT;
+import static hellofx.FlagsEnum.UPDATE_BUTTON;
+
 public class FlagsmithConfiguration {
 
   private final FlagsmithClient flagsmithClient;
@@ -22,7 +27,7 @@ public class FlagsmithConfiguration {
 
     this.flagsmithClient = FlagsmithClient
         .newBuilder()
-        .setApiKey("7QqkWrLp5sK9S7kHRrA4RH")
+        .setApiKey("E5fvLoMGuihHqTyQnCttUJ")
         .withApiUrl("http://localhost:8000/api/v1/")
         .enableLogging(FlagsmithLoggerLevel.ERROR)
         .enableLogging()
@@ -46,7 +51,7 @@ public class FlagsmithConfiguration {
   }
 
   public String getColour() {
-    final String backgroundColour = this.flagsmithClient.getFeatureFlagValue("background_colour", this.userFlagsAndTraits);
+    final String backgroundColour = this.flagsmithClient.getFeatureFlagValue(BACKGROUND_COLOUR.getValue(), this.userFlagsAndTraits);
     if (StringUtils.isNotBlank(backgroundColour)) {
       lastColor = backgroundColour;
     }
@@ -71,14 +76,14 @@ public class FlagsmithConfiguration {
   }
 
   public boolean getUpdateButtonEnabled() {
-    return this.flagsmithClient.hasFeatureFlag("update_button", this.userFlagsAndTraits);
+    return this.flagsmithClient.hasFeatureFlag(UPDATE_BUTTON.getValue(), this.userFlagsAndTraits);
   }
 
   public boolean getMoneySpentEnabled() {
-    return this.flagsmithClient.hasFeatureFlag("money_spent", this.userFlagsAndTraits);
+    return this.flagsmithClient.hasFeatureFlag(MONEY_SPENT.getValue(), this.userFlagsAndTraits);
   }
 
   public boolean getGeolocationEnabled() {
-    return this.flagsmithClient.hasFeatureFlag("geolocation", this.userFlagsAndTraits);
+    return this.flagsmithClient.hasFeatureFlag(GEOLOCATION.getValue(), this.userFlagsAndTraits);
   }
 }
