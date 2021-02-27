@@ -2,17 +2,23 @@ package hellofx;
 
 public class InitialData {
 
-  public static final int WINDOW_WIDTH = 250;
-  public static final int WINDOW_HEIGHT = 170;
-  public static final int H_OFFSET = -3430;
+  public static final int WINDOW_WIDTH = 200;
+  public static final int WINDOW_HEIGHT = 177;
+  public static final int H_OFFSET = -1920;
   public static final int V_OFFSET = 70;
+
+//  public static final int WINDOW_WIDTH = 200;
+//  public static final int WINDOW_HEIGHT = 172;
+//  public static final int H_OFFSET = 0;
+//  public static final int V_OFFSET = -20;
+
   public static final int COLUMNS = 3;
   public static final int ROWS = 7;
   public static final int HEADER_SIZE = 33;
   public static final int TOTAL_USERS = COLUMNS * ROWS;
 
   public static String getEmail(int id) {
-    return id + "@a.com";
+    return id + "@demo.com";
   }
 
   public static int getInitialX(int id) {

@@ -27,7 +27,7 @@ public class FlagsmithConfiguration {
 
     this.flagsmithClient = FlagsmithClient
         .newBuilder()
-        .setApiKey("E5fvLoMGuihHqTyQnCttUJ")
+        .setApiKey("6Y5xGKHW6MK9ugXtP2TKNc")
         .withApiUrl("http://localhost:8000/api/v1/")
         .enableLogging(FlagsmithLoggerLevel.ERROR)
         .enableLogging()

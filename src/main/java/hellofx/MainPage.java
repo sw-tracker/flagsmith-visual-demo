@@ -50,7 +50,7 @@ public class MainPage {
     setMoneyVisible(moneySpentEnabled);
 
     // Button to have some interaction
-    button = new Button("Update Traits");
+    button = new Button("Update");
     button.setStyle("-fx-text-fill: black; -fx-font-size: " + FONT_SIZE + "px;");
     setUpdateTraitsButtonVisible(updateButtonEnabled);
     button.setOnAction(getActionButtonClickedEventEventHandler());
