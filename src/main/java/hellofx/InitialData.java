@@ -2,10 +2,17 @@ package hellofx;
 
 public class InitialData {
 
+  // vt monitor
   public static final int WINDOW_WIDTH = 200;
-  public static final int WINDOW_HEIGHT = 177;
+  public static final int WINDOW_HEIGHT = 167;
   public static final int H_OFFSET = -1920;
-  public static final int V_OFFSET = 70;
+  public static final int V_OFFSET = 420;
+
+  // house curved monitor
+//  public static final int WINDOW_WIDTH = 200;
+//  public static final int WINDOW_HEIGHT = 177;
+//  public static final int H_OFFSET = -1920;
+//  public static final int V_OFFSET = 70;
 
 //  public static final int WINDOW_WIDTH = 200;
 //  public static final int WINDOW_HEIGHT = 172;

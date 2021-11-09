@@ -3,6 +3,7 @@ package hellofx;
 import com.flagsmith.FeatureUser;
 import com.flagsmith.FlagsAndTraits;
 import com.flagsmith.FlagsmithClient;
+import com.flagsmith.FlagsmithConfig;
 import com.flagsmith.FlagsmithLoggerLevel;
 import com.flagsmith.Trait;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +15,8 @@ import static hellofx.FlagsEnum.UPDATE_BUTTON;
 
 public class FlagsmithConfiguration {
 
+  private final String API_URL = "http://localhost:8000/api/v1/";
+  private final String ENV_KEY = "2eeSpRJYCVeQtsFjfSFf4i";
   private final FlagsmithClient flagsmithClient;
   private final FeatureUser user;
   private final String EMAIL;
@@ -27,10 +30,9 @@ public class FlagsmithConfiguration {
 
     this.flagsmithClient = FlagsmithClient
         .newBuilder()
-        .setApiKey("6Y5xGKHW6MK9ugXtP2TKNc")
-        .withApiUrl("http://localhost:8000/api/v1/")
+        .setApiKey(ENV_KEY)
+        .withApiUrl(API_URL)
         .enableLogging(FlagsmithLoggerLevel.ERROR)
-        .enableLogging()
         .build();
 
     this.user = new FeatureUser();
