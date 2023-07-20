@@ -10,7 +10,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>11</maven.compiler.release>
-    <javafx.version>15.0.1</javafx.version>
+    <javafx.version>17.0.2</javafx.version>
     <slf4j.version>1.7.30</slf4j.version>
   </properties>
 
@@ -23,7 +23,6 @@
       <version>${javafx.version}</version>
     </dependency>
     <!-- Uncomment for cross-platform fat jar-->
-    <!--
       <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-graphics</artifactId>
@@ -36,7 +35,6 @@
         <version>${javafx.version}</version>
         <classifier>linux</classifier>
     </dependency>
-    -->
     <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-graphics</artifactId>

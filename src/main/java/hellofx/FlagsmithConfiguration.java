@@ -16,7 +16,7 @@ import static hellofx.FlagsEnum.UPDATE_BUTTON;
 public class FlagsmithConfiguration {
 
   private final String API_URL = "http://localhost:8000/api/v1/";
-  private final String ENV_KEY = "2eeSpRJYCVeQtsFjfSFf4i";
+  private final String ENV_KEY = "YkrU87KuysrZ8UPWSKns8f";
   private final FlagsmithClient flagsmithClient;
   private final FeatureUser user;
   private final String EMAIL;

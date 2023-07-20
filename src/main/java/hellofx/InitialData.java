@@ -4,9 +4,9 @@ public class InitialData {
 
   // vt monitor
   public static final int WINDOW_WIDTH = 200;
-  public static final int WINDOW_HEIGHT = 167;
-  public static final int H_OFFSET = -1920;
-  public static final int V_OFFSET = 420;
+  public static final int WINDOW_HEIGHT = 150;
+  public static final int H_OFFSET = -2020;
+  public static final int V_OFFSET = 450;
 
   // house curved monitor
 //  public static final int WINDOW_WIDTH = 200;
