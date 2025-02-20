@@ -4,7 +4,6 @@
 
 ```shell
 mise install
-brew install flipt-io/brew/flipt
 ```
 
 ### Linux / Mac
@@ -41,6 +40,11 @@ java -jar shade\hellofx.jar
 ## Running the Feature Flag System
 
 ### Flipt
+
+```shell
+brew install flipt-io/brew/flipt
+flipt validate features.yml
+```
 
 ```shell
 # Run Flipt locally
