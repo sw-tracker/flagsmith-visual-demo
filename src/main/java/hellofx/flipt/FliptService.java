@@ -36,6 +36,7 @@ public class FliptService extends FeatureFlagsProxy {
   @Override
   public void update(String country, String money) {
     evaluationContext.put("country", country);
+    evaluationContext.put("money-balance", money);
   }
 
   @Override
