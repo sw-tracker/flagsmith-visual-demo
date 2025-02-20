@@ -1,0 +1,83 @@
+version: "1.2"
+namespace: default
+flags:
+  - key: update_button
+    name: Displays the update button
+    type: BOOLEAN_FLAG_TYPE
+    enabled: true
+  - key: money_spent
+    name: Shows the money spent input
+    type: BOOLEAN_FLAG_TYPE
+    enabled: true
+  - key: background_colour
+    name: App's background colour
+    type: VARIANT_FLAG_TYPE
+    enabled: true
+    variants: # For string type, we define variants
+      - key: blue
+        name: Blue Theme
+      - key: black
+        name: Black Theme
+      - key: red
+        name: Red Theme
+      - key: green
+        name: Green Theme
+      - key: yellow
+        name: Yellow Theme
+    rules:
+      - segment: too-rich
+        distributions:
+          - variant: yellow
+            rollout: 100
+      - segment: country-DE
+        distributions:
+          - variant: black
+            rollout: 100
+      - segment: country-CH
+        distributions:
+          - variant: red
+            rollout: 100
+      - segment: country-AU
+        distributions:
+          - variant: green
+            rollout: 100
+      - segment: all-users
+        distributions:
+          - variant: blue
+            rollout: 100
+segments:
+  - key: all-users
+    name: All Users
+    match_type: ALL_MATCH_TYPE
+  - key: country-DE
+    name: Germany
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: DE
+        type: STRING_COMPARISON_TYPE
+  - key: country-CH
+    name: Switzerland
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: CH
+        type: STRING_COMPARISON_TYPE
+  - key: country-AU
+    name: Australia
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: AU
+        type: STRING_COMPARISON_TYPE
+  - key: too-rich
+    name: Too rich
+    match_type: ANY_MATCH_TYPE # ALL_MATCH_TYPE
+    constraints:
+      - property: money-balance
+        operator: gte
+        value: "100000"
+        type: NUMBER_COMPARISON_TYPE

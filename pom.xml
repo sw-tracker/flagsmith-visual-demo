@@ -57,6 +57,11 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.11</version>
     </dependency>
+    <dependency>
+      <groupId>io.flipt</groupId>
+      <artifactId>flipt-client-java</artifactId>
+      <version>0.10.0</version>
+    </dependency>
   </dependencies>
 
   <build>
