@@ -1,0 +1,68 @@
+version: "1.2"
+namespace: default
+flags:
+  - key: update_button
+    name: Displays the update button
+    type: BOOLEAN_FLAG_TYPE
+  - key: background_colour
+    name: App's background colour
+    type: VARIANT_FLAG_TYPE
+    enabled: true
+    variants: # For string type, we define variants
+      - key: blue
+        name: Blue Theme
+      - key: black
+        name: Black Theme
+      - key: red
+        name: Red Theme
+      - key: green
+        name: Green Theme
+    rules:
+      - segment: country-DE
+        rank: 1
+        distributions:
+          - variant: black
+            rollout: 100
+      - segment: country-CH
+        rank: 1
+        distributions:
+          - variant: red
+            rollout: 100
+      - segment: country-AU
+        rank: 1
+        distributions:
+          - variant: green
+            rollout: 100
+      - segment: all-users
+        rank: 999
+        distributions:
+          - variant: blue
+            rollout: 100
+segments:
+  - key: all-users
+    name: All Users
+    match_type: ALL_MATCH_TYPE
+  - key: country-DE
+    name: Germany
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: DE
+        type: STRING_COMPARISON_TYPE
+  - key: country-CH
+    name: Switzerland
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: CH
+        type: STRING_COMPARISON_TYPE
+  - key: country-AU
+    name: Australia
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: AU
+        type: STRING_COMPARISON_TYPE

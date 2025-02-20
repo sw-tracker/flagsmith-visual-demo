@@ -1,4 +1,11 @@
-.idea/
-*.iml
-shade/
-target/
+node_modules
+*.log
+npm-debug.log*
+.DS_Store
+CHANGELOG.md
+.idea
+
+dist
+out
+shade
+target

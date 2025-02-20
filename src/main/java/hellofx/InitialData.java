@@ -2,27 +2,23 @@ package hellofx;
 
 public class InitialData {
 
-  // vt monitor
-  public static final int WINDOW_WIDTH = 200;
-  public static final int WINDOW_HEIGHT = 150;
-  public static final int H_OFFSET = -2020;
-  public static final int V_OFFSET = 450;
-
-  // house curved monitor
-//  public static final int WINDOW_WIDTH = 200;
-//  public static final int WINDOW_HEIGHT = 177;
-//  public static final int H_OFFSET = -1920;
-//  public static final int V_OFFSET = 70;
+  // house curved monitor (normal resolution)
+  public static final int WINDOW_WIDTH = 250;
+  public static final int WINDOW_HEIGHT = 180;
+  public static final int H_OFFSET = -3250;
+  public static final int V_OFFSET = 440;
 
 //  public static final int WINDOW_WIDTH = 200;
 //  public static final int WINDOW_HEIGHT = 172;
 //  public static final int H_OFFSET = 0;
 //  public static final int V_OFFSET = -20;
 
-  public static final int COLUMNS = 3;
-  public static final int ROWS = 7;
+  public static final int COLUMNS = 6;
+  public static final int ROWS = 6;
   public static final int HEADER_SIZE = 33;
   public static final int TOTAL_USERS = COLUMNS * ROWS;
+
+  private static final String[] COUNTRY_ISO_CODES = {"DE", "CH", "AT", "AU", "IT", "FR", "GB", "AF", "BS", "AD", "BG", "CA"};
 
   public static String getEmail(int id) {
     return id + "@demo.com";
@@ -41,15 +37,7 @@ public class InitialData {
   }
 
   public static String getCountry(int id) throws Exception {
-    switch (((id - 1) % COLUMNS)) {
-      case 0:
-        return "DE";
-      case 1:
-        return "CH";
-      case 2:
-        return "AT";
-      default:
-        throw new Exception("You did something wrong with the country calculation");
-    }
+    int index = (id - 1) % COLUMNS;
+    return COUNTRY_ISO_CODES[index];
   }
 }
