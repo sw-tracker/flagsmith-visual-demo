@@ -1,0 +1,13 @@
+version: '3'
+services:
+  flipt:
+    image: flipt/flipt:latest
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+    volumes:
+      - .:/data
+    environment:
+      - FLIPT_GIT_POLL_INTERVAL=5s
+      - FLIPT_STORAGE_TYPE=local
+      - FLIPT_STORAGE_LOCAL_PATH=/data

@@ -48,14 +48,8 @@ flipt validate features.yml
 
 ```shell
 # Run Flipt locally
-docker run -it --rm \
-  -p 8080:8080 \
-  -p 9000:9000 \
-  -v "$(pwd):/data" \
-  -e FLIPT_GIT_POLL_INTERVAL=5s \
-  -e FLIPT_STORAGE_TYPE=local \
-  -e FLIPT_STORAGE_LOCAL_PATH=/data \
-  flipt/flipt:latest
+docker compose up
+docker compose down
 ```
 
 - UI: localhost:8080

@@ -3,6 +3,7 @@ package hellofx.flipt;
 import hellofx.FeatureFlagsProxy;
 import io.flipt.client.EvaluationException;
 import io.flipt.client.FliptEvaluationClient;
+import io.flipt.client.models.BooleanEvaluationResponse;
 import io.flipt.client.models.VariantEvaluationResponse;
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static hellofx.FlagsEnum.BACKGROUND_COLOUR;
+import static hellofx.FlagsEnum.MONEY_SPENT;
+import static hellofx.FlagsEnum.UPDATE_BUTTON;
 
 public class FliptService extends FeatureFlagsProxy {
   private final FliptEvaluationClient fliptClient;
@@ -19,7 +22,9 @@ public class FliptService extends FeatureFlagsProxy {
   public FliptService(int id) {
     super(id);
     try {
-      this.fliptClient = FliptEvaluationClient.builder().url("http://localhost:8080").updateInterval(Duration.ofSeconds(3)).build();
+      this.fliptClient = FliptEvaluationClient.builder().url("http://localhost:8080")
+        .updateInterval(Duration.ofSeconds(2))
+        .build();
 
       evaluationContext.put("email", EMAIL);
       evaluationContext.put("country", COUNTRY);
@@ -57,12 +62,28 @@ public class FliptService extends FeatureFlagsProxy {
 
   @Override
   public boolean getUpdateButtonEnabled() {
-    return true;
+    try {
+//      System.out.println("evaluationContext: " + evaluationContext);
+      final BooleanEvaluationResponse response = this.fliptClient.evaluateBoolean(UPDATE_BUTTON.getValue(), this.EMAIL, evaluationContext);
+      boolean isEnabled = response.isEnabled();
+//      System.out.println("Money spent: " + isEnabled);
+      return isEnabled;
+    } catch (EvaluationException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
   public boolean getMoneySpentEnabled() {
-    return false;
+    try {
+//      System.out.println("evaluationContext: " + evaluationContext);
+      final BooleanEvaluationResponse response = this.fliptClient.evaluateBoolean(MONEY_SPENT.getValue(), this.EMAIL, evaluationContext);
+      boolean isEnabled = response.isEnabled();
+//      System.out.println("Money spent: " + isEnabled);
+      return isEnabled;
+    } catch (EvaluationException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override

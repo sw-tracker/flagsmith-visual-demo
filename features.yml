@@ -4,6 +4,11 @@ flags:
   - key: update_button
     name: Displays the update button
     type: BOOLEAN_FLAG_TYPE
+    enabled: true
+  - key: money_spent
+    name: Shows the money spent input
+    type: BOOLEAN_FLAG_TYPE
+    enabled: false
   - key: background_colour
     name: App's background colour
     type: VARIANT_FLAG_TYPE
