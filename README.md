@@ -1,6 +1,8 @@
 # flagsmith-visual-demo
 
-## Linux / Mac
+## Running the Java Apps
+
+### Linux / Mac
 
 If you run on Linux or Mac, follow these steps:
 
@@ -13,7 +15,7 @@ mvn compile package
 java -jar shade/hellofx.jar
 ```
 
-## Windows
+### Windows
 
 If you run on Windows, follow these steps:
 
@@ -25,3 +27,7 @@ To create a fat jar:
 mvn compile package
 java -jar shade\hellofx.jar
 ```
+
+## Running the Feature Flag System
+
+### FeatureVisor

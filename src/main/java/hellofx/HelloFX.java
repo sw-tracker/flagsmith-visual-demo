@@ -1,6 +1,6 @@
 package hellofx;
 
-import com.sun.tools.javac.Main;
+import hellofx.flagsmith.FlagsmithConfiguration;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,33 +16,33 @@ import static hellofx.InitialData.getInitialY;
 
 public class HelloFX extends Application {
 
-  private FlagsmithConfiguration flagsmithConfiguration;
+  private FeatureFlagsProxy ffsConfiguration;
 
   @Override
-  public void start(Stage stage) throws Exception {
+  public void start(Stage stage) {
     String rawId = getParameters().getNamed().get("id");
     int id = 1;
     if (rawId != null) {
       id = Integer.parseInt(rawId);
     }
 
-    this.flagsmithConfiguration = new FlagsmithConfiguration(id);
+    this.ffsConfiguration = new FeatureFlagSystemAdapter().getFfs(id);
 
     MainPage.setButtonClickConsumer(new TraitsConsumer() {
       @Override
       public void update(String country, String money) {
-        flagsmithConfiguration.update(country, money);
+        ffsConfiguration.update(country, money);
       }
     });
 
     // The scene which is the "root" of our application
     Scene scene = new Scene(MainPage.getGrid(
-        this.flagsmithConfiguration.getEmail(),
-        this.flagsmithConfiguration.getColour(),
-        this.flagsmithConfiguration.getCountry(),
-        this.flagsmithConfiguration.getUpdateButtonEnabled(),
-        this.flagsmithConfiguration.getMoneySpentEnabled(),
-        this.flagsmithConfiguration.getGeolocationEnabled()
+        this.ffsConfiguration.getEmail(),
+        this.ffsConfiguration.getColour(),
+        this.ffsConfiguration.getCountry(),
+        this.ffsConfiguration.getUpdateButtonEnabled(),
+        this.ffsConfiguration.getMoneySpentEnabled(),
+        this.ffsConfiguration.getGeolocationEnabled()
     ), WINDOW_WIDTH, WINDOW_HEIGHT);
 
     // The top level JavaJX container
@@ -60,11 +60,11 @@ public class HelloFX extends Application {
     final int PERIOD_MS = TOTAL_USERS + MIN_MS_BETWEEN;
     new Timer().scheduleAtFixedRate(new TimerTask() {
       public void run() {
-        flagsmithConfiguration.getUserFlagsAndTraits();
-        MainPage.setGridColor(flagsmithConfiguration.getColour());
-        MainPage.setUpdateTraitsButtonVisible(flagsmithConfiguration.getUpdateButtonEnabled());
-        MainPage.setMoneyVisible(flagsmithConfiguration.getMoneySpentEnabled());
-        MainPage.setCountryVisible(flagsmithConfiguration.getGeolocationEnabled());
+        ffsConfiguration.getUserFlagsAndTraits();
+        MainPage.setGridColor(ffsConfiguration.getColour());
+        MainPage.setUpdateTraitsButtonVisible(ffsConfiguration.getUpdateButtonEnabled());
+        MainPage.setMoneyVisible(ffsConfiguration.getMoneySpentEnabled());
+        MainPage.setCountryVisible(ffsConfiguration.getGeolocationEnabled());
       }
     }, DELAY_MS + (id * MIN_MS_BETWEEN), PERIOD_MS);
   }

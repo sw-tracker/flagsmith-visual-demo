@@ -1,11 +1,12 @@
-package hellofx;
+package hellofx.flagsmith;
 
 import com.flagsmith.FeatureUser;
 import com.flagsmith.FlagsAndTraits;
 import com.flagsmith.FlagsmithClient;
-import com.flagsmith.FlagsmithConfig;
 import com.flagsmith.FlagsmithLoggerLevel;
 import com.flagsmith.Trait;
+import hellofx.FeatureFlagsProxy;
+import hellofx.InitialData;
 import org.apache.commons.lang3.StringUtils;
 
 import static hellofx.FlagsEnum.BACKGROUND_COLOUR;
@@ -13,7 +14,7 @@ import static hellofx.FlagsEnum.GEOLOCATION;
 import static hellofx.FlagsEnum.MONEY_SPENT;
 import static hellofx.FlagsEnum.UPDATE_BUTTON;
 
-public class FlagsmithConfiguration {
+public class FlagsmithConfiguration implements FeatureFlagsProxy {
 
   private final String API_URL = "http://localhost:8000/api/v1/";
   private final String ENV_KEY = "YkrU87KuysrZ8UPWSKns8f";
@@ -24,11 +25,15 @@ public class FlagsmithConfiguration {
   private FlagsAndTraits userFlagsAndTraits;
   private String lastColor = "blue";
 
-  public FlagsmithConfiguration(int id) throws Exception {
+  public FlagsmithConfiguration(int id) {
     this.EMAIL = InitialData.getEmail(id);
-    this.COUNTRY = InitialData.getCountry(id);
+      try {
+          this.COUNTRY = InitialData.getCountry(id);
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
 
-    this.flagsmithClient = FlagsmithClient
+      this.flagsmithClient = FlagsmithClient
         .newBuilder()
         .setApiKey(ENV_KEY)
         .withApiUrl(API_URL)
