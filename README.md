@@ -67,6 +67,11 @@ make flipt-clean
 
 ### Flagsmith
 
+```shell
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+```
+
 ```mermaid
 graph TD
     subgraph "Flagsmith Local Deployment with Terraform"

@@ -19,5 +19,11 @@ services:
     environment:
       DATABASE_URL: postgresql://flagsmith:password@postgres:5432/flagsmith
       REDIS_URL: redis://redis:6379
+      ALLOWED_HOSTS: '*'
+      DJANGO_ALLOWED_HOSTS: '*'
+      ACCESS_LOG_LOCATION: '/dev/null'
+      DJANGO_SECRET_KEY: 'change-me'
+      SERVER_URL: 'http://localhost:8000'
+      ENABLE_ADMIN: 'True'
     ports:
       - "8000:8000"

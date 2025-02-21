@@ -5,7 +5,8 @@ help:
 	@echo "  make j-start        - JavaFX App: Compiles and starts one instance of the application"
 	@echo "  make j-build    		 - JavaFX App: Build"
 	@echo "  make j-run      		 - JavaFX App: Runs one instance of the application"
-	@echo "  make fs-start       - Flagsmith: Initialize Flagsmith containers and Terraform"
+	@echo "  make fs-start       - Flagsmith: Initialize Flagsmith containers"
+	@echo "  make fs-init        - Flagsmith: Initialize Terraform"
 	@echo "  make fs-apply       - Flagsmith: Apply Terraform configuration"
 	@echo "  make fs-destroy     - Flagsmith: Destroy Terraform resources and stop containers"
 	@echo "  make fs-status      - Flagsmith: Show status of containers and Terraform state"
@@ -28,7 +29,8 @@ j-run:
 # Flagsmith commands
 fs-start:
 	cd flagsmith && docker compose up
-	sleep 10
+
+fs-init:
 	cd flagsmith && terraform init
 
 fs-apply:

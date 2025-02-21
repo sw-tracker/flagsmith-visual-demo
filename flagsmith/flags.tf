@@ -1,17 +1,7 @@
 # flags.tf
-resource "flagsmith_feature" "dark_mode" {
-  project_id = flagsmith_project.main.id
-  name       = "dark_mode"
-  description = "Enable dark mode feature"
-}
-
-resource "flagsmith_environment" "production" {
-  project_id = flagsmith_project.main.id
-  name       = "Production"
-}
-
-resource "flagsmith_feature_state" "dark_mode_prod" {
-  environment_id = flagsmith_environment.production.id
-  feature_id     = flagsmith_feature.dark_mode.id
-  enabled        = true
+resource "flagsmith_feature" "new_standard_feature" {
+  feature_name = "new_standard_feature"
+  project_uuid = "420e5201-7692-4e68-b828-9aa6a9d37c8e"
+  description  = "This is a new standard feature"
+  type         = "STANDARD"
 }
