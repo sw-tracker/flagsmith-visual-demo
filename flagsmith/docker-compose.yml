@@ -1,0 +1,23 @@
+# docker-compose.yml
+version: '3'
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: flagsmith
+      POSTGRES_USER: flagsmith
+      POSTGRES_PASSWORD: password
+
+  redis:
+    image: redis:6-alpine
+
+  flagsmith:
+    image: flagsmith/flagsmith:latest
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: postgresql://flagsmith:password@postgres:5432/flagsmith
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "8000:8000"

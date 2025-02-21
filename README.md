@@ -10,13 +10,11 @@ mise install
 
 If you run on Linux or Mac, follow these steps:
 
-To run the project: `mvn clean compiler:compile javafx:run`
-
-To create a fat jar:
-
 ```sh
-mvn compile package
-java -jar shade/hellofx.jar
+# start a single app instance
+make j-start
+# start multiple instances
+make j-all
 ```
 
 To run a bunch of apps, use [this script](startDemo.sh). This script:
@@ -48,9 +46,43 @@ flipt validate features.yml
 
 ```shell
 # Run Flipt locally
-docker compose up
-docker compose down
+# Start Flipt
+make flipt-setup
+
+# Stop services
+make flipt-stop
+
+# Start services again
+make flipt-start
+
+# Restart services
+make flipt-restart
+
+# Full cleanup
+make flipt-clean
 ```
 
 - UI: localhost:8080
 - Server: localhost:9000, localhost:8080/api/v1
+
+### Flagsmith
+
+```mermaid
+graph TD
+    subgraph "Flagsmith Local Deployment with Terraform"
+        A[Terraform Config] -->|Defines| B[Local Flagsmith]
+        A -->|Defines| C[Feature Flags]
+
+        subgraph "Infrastructure"
+            B -->|Runs in| D[Docker]
+            B -->|Uses| E[(Database)]
+            B -->|Uses| F[Redis]
+        end
+
+        subgraph "Feature Flag as Code"
+            C -->|Creates| G[Flags]
+            C -->|Creates| H[Segments]
+            C -->|Creates| I[Environments]
+        end
+    end
+```
