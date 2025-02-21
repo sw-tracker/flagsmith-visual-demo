@@ -15,8 +15,11 @@ import static hellofx.FlagsEnum.UPDATE_BUTTON;
 
 public class FlagsmithService extends FeatureFlagsProxy {
 
+  // # Email: boss@boss.com
+  //# Password: Admin123!
+  //# API Key: wuyCglzN.53Y57ie9L0B3Vmope97aFmKTV3v6AWeY
   private final String API_URL = "http://localhost:8000/api/v1/";
-  private final String ENV_KEY = "YkrU87KuysrZ8UPWSKns8f";
+  private final String PROJECT_ENV_KEY = "JhgtXTF7NfDdx5iGsDdCBs";
   private final FlagsmithClient flagsmithClient;
   private final FeatureUser user;
   private FlagsAndTraits userFlagsAndTraits;
@@ -26,7 +29,7 @@ public class FlagsmithService extends FeatureFlagsProxy {
 
       this.flagsmithClient = FlagsmithClient
         .newBuilder()
-        .setApiKey(ENV_KEY)
+        .setApiKey(PROJECT_ENV_KEY)
         .withApiUrl(API_URL)
         .enableLogging(FlagsmithLoggerLevel.ERROR)
         .build();

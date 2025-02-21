@@ -22,7 +22,8 @@ public class FliptService extends FeatureFlagsProxy {
   public FliptService(int id) {
     super(id);
     try {
-      this.fliptClient = FliptEvaluationClient.builder().url("http://localhost:8080")
+      this.fliptClient = FliptEvaluationClient.builder()
+        .url("http://localhost:8080")
         .updateInterval(Duration.ofSeconds(2))
         .build();
 

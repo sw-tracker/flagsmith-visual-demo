@@ -10,13 +10,11 @@ mise install
 
 If you run on Linux or Mac, follow these steps:
 
-To run the project: `mvn clean compiler:compile javafx:run`
-
-To create a fat jar:
-
 ```sh
-mvn compile package
-java -jar shade/hellofx.jar
+# start a single app instance
+make j-start
+# start multiple instances
+make j-all
 ```
 
 To run a bunch of apps, use [this script](startDemo.sh). This script:
@@ -48,9 +46,20 @@ flipt validate features.yml
 
 ```shell
 # Run Flipt locally
-docker compose up
-docker compose down
+make flipt-start
 ```
 
 - UI: localhost:8080
 - Server: localhost:9000, localhost:8080/api/v1
+
+### Flagsmith
+
+- Start Flagsmith
+  ```shell
+  # Run Flagsmith locally
+  make fs-start
+  ```
+- Create an account
+- Create an organisation and a project
+- Get the API key for the project and save it in `PROJECT_ENV_KEY`
+- Start the JavaFX applications

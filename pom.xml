@@ -60,7 +60,7 @@
     <dependency>
       <groupId>io.flipt</groupId>
       <artifactId>flipt-client-java</artifactId>
-      <version>0.10.0</version>
+      <version>0.12.1</version>
     </dependency>
   </dependencies>
 
