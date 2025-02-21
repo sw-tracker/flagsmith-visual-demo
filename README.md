@@ -46,20 +46,7 @@ flipt validate features.yml
 
 ```shell
 # Run Flipt locally
-# Start Flipt
-make flipt-setup
-
-# Stop services
-make flipt-stop
-
-# Start services again
 make flipt-start
-
-# Restart services
-make flipt-restart
-
-# Full cleanup
-make flipt-clean
 ```
 
 - UI: localhost:8080
@@ -67,27 +54,12 @@ make flipt-clean
 
 ### Flagsmith
 
-```shell
-brew tap hashicorp/tap
-brew install hashicorp/tap/terraform
-```
-
-```mermaid
-graph TD
-    subgraph "Flagsmith Local Deployment with Terraform"
-        A[Terraform Config] -->|Defines| B[Local Flagsmith]
-        A -->|Defines| C[Feature Flags]
-
-        subgraph "Infrastructure"
-            B -->|Runs in| D[Docker]
-            B -->|Uses| E[(Database)]
-            B -->|Uses| F[Redis]
-        end
-
-        subgraph "Feature Flag as Code"
-            C -->|Creates| G[Flags]
-            C -->|Creates| H[Segments]
-            C -->|Creates| I[Environments]
-        end
-    end
-```
+- Start Flagsmith
+  ```shell
+  # Run Flagsmith locally
+  make fs-start
+  ```
+- Create an account
+- Create an organisation and a project
+- Get the API key for the project and save it in `PROJECT_ENV_KEY`
+- Start the JavaFX applications
