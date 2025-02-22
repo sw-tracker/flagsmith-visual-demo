@@ -5,7 +5,7 @@ import hellofx.flipt.FliptService;
 
 public class FeatureFlagSystemAdapter {
 
-  public final FeatureFlagSystems USE_FFS = FeatureFlagSystems.FLAGSMITH;
+  public final FeatureFlagSystems USE_FFS = FeatureFlagSystems.FLIPT;
 
   public FeatureFlagsProxy getFfs(int id) {
     switch (USE_FFS) {
