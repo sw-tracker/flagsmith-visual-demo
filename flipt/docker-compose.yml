@@ -1,5 +1,6 @@
 version: '3'
 services:
+  # GitOps version
   flipt:
     image: flipt/flipt:latest
     ports:
@@ -11,3 +12,12 @@ services:
       - FLIPT_GIT_POLL_INTERVAL=5s
       - FLIPT_STORAGE_TYPE=local
       - FLIPT_STORAGE_LOCAL_PATH=/data
+
+  # Non-GitOps version
+#  flipt:
+#    image: docker.flipt.io/flipt/flipt:latest
+#    ports:
+#      - "8080:8080"
+#      - "9000:9000"
+#    volumes:
+#      - .:/var/opt/flipt

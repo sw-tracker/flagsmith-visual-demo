@@ -10,3 +10,4 @@ out
 shade
 target
 flagsmith/.terraform
+flipt.db
