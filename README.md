@@ -69,13 +69,12 @@ make flipt-start
 
 ### Unleashed
 
-- Start Flagsmith
+- Start Unleashed
   ```shell
   make ul-start
   ```
 - In your browser, go to http://localhost:4242 and log in using the following credentials:
   - username: `admin`
   - password: `unleash4all`
-
 
 - UI: http://localhost:4242
