@@ -49,8 +49,8 @@ flipt validate features.yml
 make flipt-start
 ```
 
-- UI: localhost:8080
-- Server: localhost:9000, localhost:8080/api/v1
+- UI: http://localhost:8080
+- Server: http://localhost:9000, http://localhost:8080/api/v1
 
 ### Flagsmith
 
@@ -63,3 +63,18 @@ make flipt-start
 - Create an organisation and a project
 - Get the API key for the project and save it in `PROJECT_ENV_KEY`
 - Start the JavaFX applications
+
+- UI: http://localhost:8000
+- API: http://localhost:8000/api/v1/
+
+### Unleashed
+
+- Start Unleashed
+  ```shell
+  make ul-start
+  ```
+- In your browser, go to http://localhost:4242 and log in using the following credentials:
+  - username: `admin`
+  - password: `unleash4all`
+
+- UI: http://localhost:4242

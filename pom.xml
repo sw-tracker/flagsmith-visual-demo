@@ -62,6 +62,11 @@
       <artifactId>flipt-client-java</artifactId>
       <version>0.12.1</version>
     </dependency>
+    <dependency>
+      <groupId>io.getunleash</groupId>
+      <artifactId>unleash-client-java</artifactId>
+      <version>10.0.2</version>
+    </dependency>
   </dependencies>
 
   <build>
