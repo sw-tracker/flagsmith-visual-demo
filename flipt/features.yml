@@ -5,6 +5,13 @@ flags:
     name: Displays the update button
     type: BOOLEAN_FLAG_TYPE
     enabled: true
+    rollouts: # for kill-switch segmentation use rollouts
+      - segment:
+          key: my-user-group
+          value: false
+      - segment:
+          key: all-users
+          value: true
   - key: money_spent
     name: Shows the money spent input
     type: BOOLEAN_FLAG_TYPE
@@ -24,10 +31,12 @@ flags:
         name: Green Theme
       - key: yellow
         name: Yellow Theme
+      - key: pink
+        name: Pink Theme
     rules:
       - segment: too-rich
         distributions:
-          - variant: yellow
+          - variant: pink
             rollout: 100
       - segment: country-DE
         distributions:
@@ -81,3 +90,15 @@ segments:
         operator: gte
         value: "100000"
         type: NUMBER_COMPARISON_TYPE
+  - key: my-user-group
+    name: My test users
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: email
+        operator: eq
+        value: "14@demo.com"
+        type: STRING_COMPARISON_TYPE
+      - property: email
+        operator: eq
+        value: "15@demo.com"
+        type: STRING_COMPARISON_TYPE
