@@ -57,6 +57,52 @@ make flipt-stop    # docker compose --profile flipt down
 - UI: http://localhost:8080
 - Server: http://localhost:9000, http://localhost:8080/api/v1
 
+### Flipt 2.0
+
+Flipt 2.0 replaced the single `features.yml` (namespace + version at the top) with a
+git-native model: one or more **environments** (git branches), each backed by a
+**storage** location, containing one directory per **namespace** with its own
+`features.yaml`. Server config lives in [`flipt2/flipt.yml`](flipt2/flipt.yml).
+
+This demo uses the `local` storage backend, which manages its data path as its own git
+repository directly, so *every* flag/segment change - whether from a file or from the UI -
+is a real git commit:
+
+- [`flipt2/seed/default/features.yaml`](flipt2/seed/default/features.yaml) is the
+  human-authored "as code" source (mirrors [`flipt/features.yml`](flipt/features.yml) for v1).
+- `flipt2/seed.sh` (run automatically by `make flipt2-start`) seeds `flipt2/data/` - a
+  gitignored bare git repo, on first run only - by committing the seed onto its `main`
+  branch (which the "production" environment in `flipt2/flipt.yml` points `ref` at).
+  Delete `flipt2/data` to force a reseed from the yaml source.
+- Once running, edits made through the Flipt UI/API are committed straight into
+  `flipt2/data` (inspect with `git -C flipt2/data log --stat`).
+
+```shell
+make flipt2-start   # seeds flipt2/data (first run only), then docker compose --profile flipt2 up -d
+make flipt2-stop    # docker compose --profile flipt2 down
+```
+
+- UI: http://localhost:8081
+- Server: http://localhost:9001, http://localhost:8081/api/v1
+
+> Note: uses different host ports (8081/9001) than the v1 Flipt profile above so both can
+> run side by side if you want to compare them directly.
+
+See commits flipt2 makes `git -C flipt2/data log --oneline refs/remotes/origin/main`.
+
+The JavaFX app connects to Flipt 2.0 via `hellofx.flipt2.Flipt2Service`, selected by
+setting `USE_FFS = FeatureFlagSystems.FLIPT2` in
+[`FeatureFlagSystemAdapter`](src/main/java/hellofx/FeatureFlagSystemAdapter.java). It
+needs `io.flipt:flipt-client-java` 1.3.4+ (see `pom.xml`) since that's the first version
+whose client supports the `environment` concept Flipt 2.0 introduced - the older client
+used for v1 can't talk to a v2 server at all. If your Maven mirror doesn't have that
+version cached yet, resolve it from Maven Central directly with the project-local
+[`settings.xml`](settings.xml):
+
+```shell
+mvn -s settings.xml dependency:get -Dartifact=io.flipt:flipt-client-java:1.3.4
+```
+
 ### Flagsmith
 
 - Start Flagsmith

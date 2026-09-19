@@ -1,0 +1,103 @@
+# Flags/segments for the "default" namespace, authored as code (mirrors
+# ../../../flipt/features.yml for Flipt v1). This file is the source of truth;
+# `make flipt2-start` commits it into the Flipt-managed git repo at flipt2/data
+# (gitignored, created on first run) which the Flipt 2.0 server actually reads
+# from. Edit this file and re-run `make flipt2-start` to push changes as code;
+# edits made via the Flipt UI are committed straight into flipt2/data instead.
+version: "1.6"
+namespace:
+  key: default
+  name: Default
+flags:
+  - key: update_button
+    name: Displays the update button
+    type: BOOLEAN_FLAG_TYPE
+    enabled: true # default for everyone not matched by a rollout below
+    rollouts: # for kill-switch segmentation use rollouts
+      - segment:
+          key: my-user-group
+          value: false
+  - key: money_spent
+    name: Shows the money spent input
+    type: BOOLEAN_FLAG_TYPE
+    enabled: true # default for everyone; no rollouts/rules needed
+  - key: background_colour
+    name: App's background colour
+    type: VARIANT_FLAG_TYPE
+    enabled: true
+    variants: # For string type, we define variants
+      - key: blue
+        name: Blue Theme
+        default: true # used when no rule below matches
+      - key: black
+        name: Black Theme
+      - key: red
+        name: Red Theme
+      - key: green
+        name: Green Theme
+      - key: yellow
+        name: Yellow Theme
+      - key: pink
+        name: Pink Theme
+    rules:
+      - segment: too-rich
+        distributions:
+          - variant: pink
+            rollout: 100
+      - segment: country-DE
+        distributions:
+          - variant: black
+            rollout: 100
+      - segment: country-CH
+        distributions:
+          - variant: red
+            rollout: 100
+      - segment: country-AU
+        distributions:
+          - variant: green
+            rollout: 100
+segments:
+  - key: country-DE
+    name: Germany
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: DE
+        type: STRING_COMPARISON_TYPE
+  - key: country-CH
+    name: Switzerland
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: CH
+        type: STRING_COMPARISON_TYPE
+  - key: country-AU
+    name: Australia
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: country
+        operator: eq
+        value: AU
+        type: STRING_COMPARISON_TYPE
+  - key: too-rich
+    name: Too rich
+    match_type: ANY_MATCH_TYPE # ALL_MATCH_TYPE
+    constraints:
+      - property: money-balance
+        operator: gte
+        value: "100000"
+        type: NUMBER_COMPARISON_TYPE
+  - key: my-user-group
+    name: My test users
+    match_type: ANY_MATCH_TYPE
+    constraints:
+      - property: email
+        operator: eq
+        value: "14@demo.com"
+        type: STRING_COMPARISON_TYPE
+      - property: email
+        operator: eq
+        value: "15@demo.com"
+        type: STRING_COMPARISON_TYPE
