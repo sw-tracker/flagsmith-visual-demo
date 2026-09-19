@@ -8,12 +8,12 @@
 # directory layout under ./environments acts as the source of truth directly:
 #   environments/<environment-name>/<namespace-name>/features.yaml
 storage:
-  - name: default
+  default:
     backend:
       type: local
       path: /data
 
 environments:
-  - name: production
+  production:
     storage: default
     default: true
