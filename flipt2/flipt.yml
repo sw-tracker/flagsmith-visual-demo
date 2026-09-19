@@ -1,0 +1,19 @@
+# Flipt 2.0 server config.
+#
+# Flipt 2.0 replaced the single namespaced features.yml (see ../flipt/features.yml)
+# with a git-native model: one or more `environments`, each backed by a `storage`
+# location, containing one directory per namespace with its own features.yaml.
+#
+# This demo uses the `local` storage backend (no git repo required) so the
+# directory layout under ./environments acts as the source of truth directly:
+#   environments/<environment-name>/<namespace-name>/features.yaml
+storage:
+  - name: default
+    backend:
+      type: local
+      path: /data
+
+environments:
+  - name: production
+    storage: default
+    default: true

@@ -7,6 +7,8 @@ help:
 	@echo "  make j-run      			- JavaFX App: Runs one instance of the application"
 	@echo "  make flipt-start     - Flipt: Start Flipt containers"
 	@echo "  make flipt-stop      - Flipt: Stop Flipt containers"
+	@echo "  make flipt2-start    - Flipt 2.0: Start Flipt 2.0 containers"
+	@echo "  make flipt2-stop     - Flipt 2.0: Stop Flipt 2.0 containers"
 	@echo "  make fs-start        - Flagsmith: Start Flagsmith containers"
 	@echo "  make fs-stop         - Flagsmith: Stop Flagsmith containers"
 	@echo "  make ul-start        - Unleash: Start Unleash containers"
@@ -41,6 +43,13 @@ flipt-start:
 flipt-stop:
 	docker compose --profile flipt down
 
+# Flipt 2.0 commands
+flipt2-start:
+	docker compose --profile flipt2 up -d
+
+flipt2-stop:
+	docker compose --profile flipt2 down
+
 # Unleash commands
 ul-start:
 	docker compose --profile unleash up -d
@@ -50,4 +59,4 @@ ul-stop:
 
 # Feature flag status (across all profiles)
 ff-status:
-	docker compose --profile flipt --profile flagsmith --profile unleash ps
+	docker compose --profile flipt --profile flipt2 --profile flagsmith --profile unleash ps

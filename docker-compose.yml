@@ -1,10 +1,11 @@
 # Local feature-flag backends for this demo, selected via Compose profiles:
 #   docker compose --profile flipt up
+#   docker compose --profile flipt2 up
 #   docker compose --profile flagsmith up
 #   docker compose --profile unleash up
-# (see the Makefile for shortcuts: make flipt-start / fs-start / ul-start)
+# (see the Makefile for shortcuts: make flipt-start / flipt2-start / fs-start / ul-start)
 services:
-  # --- Flipt -----------------------------------------------------------
+  # --- Flipt (v1) --------------------------------------------------------
   flipt:
     profiles: ["flipt"]
     image: flipt/flipt:latest
@@ -17,6 +18,21 @@ services:
       - FLIPT_GIT_POLL_INTERVAL=5s
       - FLIPT_STORAGE_TYPE=local
       - FLIPT_STORAGE_LOCAL_PATH=/data
+
+  # --- Flipt 2.0 -----------------------------------------------------------
+  # Flipt 2.0 moved to a git-native declarative config model (environments ->
+  # namespaces -> features.yaml), configured via flipt2/flipt.yml. See
+  # flipt2/flipt.yml for details. Uses different host ports so it can run
+  # alongside the v1 "flipt" profile if needed.
+  flipt2:
+    profiles: ["flipt2"]
+    image: flipt/flipt:v2
+    ports:
+      - "8081:8080"
+      - "9001:9000"
+    volumes:
+      - ./flipt2/flipt.yml:/etc/flipt/config/default.yml
+      - ./flipt2/environments:/data
 
   # --- Flagsmith ---------------------------------------------------------
   flagsmith-postgres:

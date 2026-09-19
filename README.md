@@ -57,6 +57,26 @@ make flipt-stop    # docker compose --profile flipt down
 - UI: http://localhost:8080
 - Server: http://localhost:9000, http://localhost:8080/api/v1
 
+### Flipt 2.0
+
+Flipt 2.0 replaced the single `features.yml` (namespace + version at the top) with a
+git-native declarative model: one or more **environments**, each backed by a **storage**
+location, containing one directory per **namespace** with its own `features.yaml`. This
+demo uses the `local` storage backend, so `flipt2/environments/<environment>/<namespace>/features.yaml`
+is the source of truth directly (no git repo needed). Server config lives in
+[`flipt2/flipt.yml`](flipt2/flipt.yml).
+
+```shell
+make flipt2-start   # docker compose --profile flipt2 up -d
+make flipt2-stop    # docker compose --profile flipt2 down
+```
+
+- UI: http://localhost:8081
+- Server: http://localhost:9001, http://localhost:8081/api/v1
+
+> Note: uses different host ports (8081/9001) than the v1 Flipt profile above so both can
+> run side by side if you want to compare them directly.
+
 ### Flagsmith
 
 - Start Flagsmith
