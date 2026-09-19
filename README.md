@@ -88,6 +88,21 @@ make flipt2-stop    # docker compose --profile flipt2 down
 > Note: uses different host ports (8081/9001) than the v1 Flipt profile above so both can
 > run side by side if you want to compare them directly.
 
+See commits flipt2 makes `git -C flipt2/data log --oneline refs/remotes/origin/main`.
+
+The JavaFX app connects to Flipt 2.0 via `hellofx.flipt2.Flipt2Service`, selected by
+setting `USE_FFS = FeatureFlagSystems.FLIPT2` in
+[`FeatureFlagSystemAdapter`](src/main/java/hellofx/FeatureFlagSystemAdapter.java). It
+needs `io.flipt:flipt-client-java` 1.3.4+ (see `pom.xml`) since that's the first version
+whose client supports the `environment` concept Flipt 2.0 introduced - the older client
+used for v1 can't talk to a v2 server at all. If your Maven mirror doesn't have that
+version cached yet, resolve it from Maven Central directly with the project-local
+[`settings.xml`](settings.xml):
+
+```shell
+mvn -s settings.xml dependency:get -Dartifact=io.flipt:flipt-client-java:1.3.4
+```
+
 ### Flagsmith
 
 - Start Flagsmith

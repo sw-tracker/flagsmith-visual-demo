@@ -1,4 +1,4 @@
-package hellofx.flipt;
+package hellofx.flipt2;
 
 import hellofx.FeatureFlagsProxy;
 import io.flipt.client.FliptClient;
@@ -15,15 +15,23 @@ import static hellofx.FlagsEnum.BACKGROUND_COLOUR;
 import static hellofx.FlagsEnum.MONEY_SPENT;
 import static hellofx.FlagsEnum.UPDATE_BUTTON;
 
-public class FliptService extends FeatureFlagsProxy {
+// Same flags/segments as hellofx.flipt.FliptService, against the Flipt 2.0
+// demo (see flipt2/ and the "Flipt 2.0" section of the README). Flipt 2.0
+// adds the "environment" concept on top of namespaces, so this needs a
+// newer flipt-client-java (1.3.4+, see pom.xml) whose FliptClient exposes
+// .environment(...) - the older FliptEvaluationClient client used for v1
+// cannot talk to a v2 server at all.
+public class Flipt2Service extends FeatureFlagsProxy {
   private final FliptClient fliptClient;
   private final Map evaluationContext = new HashMap<String, String>();
 
-  public FliptService(int id) {
+  public Flipt2Service(int id) {
     super(id);
     try {
       this.fliptClient = FliptClient.builder()
-        .url("http://localhost:8080")
+        .url("http://localhost:8081")
+        .environment("production")
+        .namespace("default")
         .updateInterval(Duration.ofSeconds(2))
         .build();
 
@@ -48,10 +56,8 @@ public class FliptService extends FeatureFlagsProxy {
   @Override
   public String getColour() {
     try {
-//      System.out.println("evaluationContext: " + evaluationContext);
       final VariantEvaluationResponse backgroundColour = this.fliptClient.evaluateVariant(BACKGROUND_COLOUR.getValue(), this.EMAIL, evaluationContext);
       String variantKey = backgroundColour.getVariantKey();
-//      System.out.println("Background colour: " + variantKey);
 
       if (StringUtils.isNotBlank(variantKey)) {
         lastColor = variantKey;
@@ -65,11 +71,8 @@ public class FliptService extends FeatureFlagsProxy {
   @Override
   public boolean getUpdateButtonEnabled() {
     try {
-//      System.out.println("evaluationContext: " + evaluationContext);
       final BooleanEvaluationResponse response = this.fliptClient.evaluateBoolean(UPDATE_BUTTON.getValue(), this.EMAIL, evaluationContext);
-      boolean isEnabled = response.isEnabled();
-//      System.out.println("Money spent: " + isEnabled);
-      return isEnabled;
+      return response.isEnabled();
     } catch (EvaluationException e) {
       throw new RuntimeException(e);
     }
@@ -78,11 +81,8 @@ public class FliptService extends FeatureFlagsProxy {
   @Override
   public boolean getMoneySpentEnabled() {
     try {
-//      System.out.println("evaluationContext: " + evaluationContext);
       final BooleanEvaluationResponse response = this.fliptClient.evaluateBoolean(MONEY_SPENT.getValue(), this.EMAIL, evaluationContext);
-      boolean isEnabled = response.isEnabled();
-//      System.out.println("Money spent: " + isEnabled);
-      return isEnabled;
+      return response.isEnabled();
     } catch (EvaluationException e) {
       throw new RuntimeException(e);
     }

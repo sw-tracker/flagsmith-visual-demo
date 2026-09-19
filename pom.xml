@@ -16,6 +16,34 @@
 
   <name>hellofx</name>
 
+  <!--
+    flagsmith-java-client pulls jackson-databind 2.10.1, but flipt-client-java 1.3.4
+    needs ~2.22.x jackson (jackson-dataformat-xml/jackson-datatype-jdk8 2.22.2). Without
+    pinning, Maven's "nearest wins" mediation picks the older 2.10.1 core/databind, which
+    silently breaks Flipt's response deserialization (evaluateVariant/evaluateBoolean
+    return a raw LinkedHashMap instead of the typed response, throwing a
+    ClassCastException at runtime instead of failing the build).
+  -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.22.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.22</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.22.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
@@ -60,7 +88,7 @@
     <dependency>
       <groupId>io.flipt</groupId>
       <artifactId>flipt-client-java</artifactId>
-      <version>0.12.1</version>
+      <version>1.3.4</version>
     </dependency>
     <dependency>
       <groupId>io.getunleash</groupId>

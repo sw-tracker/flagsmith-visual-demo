@@ -12,18 +12,15 @@ flags:
   - key: update_button
     name: Displays the update button
     type: BOOLEAN_FLAG_TYPE
-    enabled: true
+    enabled: true # default for everyone not matched by a rollout below
     rollouts: # for kill-switch segmentation use rollouts
       - segment:
           key: my-user-group
           value: false
-      - segment:
-          key: all-users
-          value: true
   - key: money_spent
     name: Shows the money spent input
     type: BOOLEAN_FLAG_TYPE
-    enabled: true
+    enabled: true # default for everyone; no rollouts/rules needed
   - key: background_colour
     name: App's background colour
     type: VARIANT_FLAG_TYPE
@@ -31,6 +28,7 @@ flags:
     variants: # For string type, we define variants
       - key: blue
         name: Blue Theme
+        default: true # used when no rule below matches
       - key: black
         name: Black Theme
       - key: red
@@ -58,14 +56,7 @@ flags:
         distributions:
           - variant: green
             rollout: 100
-      - segment: all-users
-        distributions:
-          - variant: blue
-            rollout: 100
 segments:
-  - key: all-users
-    name: All Users
-    match_type: ALL_MATCH_TYPE
   - key: country-DE
     name: Germany
     match_type: ANY_MATCH_TYPE
