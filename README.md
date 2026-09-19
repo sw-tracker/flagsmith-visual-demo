@@ -37,16 +37,21 @@ java -jar shade\hellofx.jar
 
 ## Running the Feature Flag System
 
+All three backends are defined in the root [`docker-compose.yml`](docker-compose.yml) as
+[Compose profiles](https://docs.docker.com/compose/how-tos/profiles/), so you only start the
+one(s) you need, and each has a matching `make <name>-stop`. Run `make help` for the full list,
+or `make ff-status` to see what's currently running.
+
 ### Flipt
 
 ```shell
 brew install flipt-io/brew/flipt
-flipt validate features.yml
+flipt validate flipt/features.yml
 ```
 
 ```shell
-# Run Flipt locally
-make flipt-start
+make flipt-start   # docker compose --profile flipt up -d
+make flipt-stop    # docker compose --profile flipt down
 ```
 
 - UI: http://localhost:8080
@@ -56,8 +61,8 @@ make flipt-start
 
 - Start Flagsmith
   ```shell
-  # Run Flagsmith locally
-  make fs-start
+  make fs-start   # docker compose --profile flagsmith up -d
+  make fs-stop    # docker compose --profile flagsmith down
   ```
 - Create an account
 - Create an organisation and a project
@@ -67,11 +72,12 @@ make flipt-start
 - UI: http://localhost:8000
 - API: http://localhost:8000/api/v1/
 
-### Unleashed
+### Unleash
 
-- Start Unleashed
+- Start Unleash
   ```shell
-  make ul-start
+  make ul-start   # docker compose --profile unleash up -d
+  make ul-stop    # docker compose --profile unleash down
   ```
 - In your browser, go to http://localhost:4242 and log in using the following credentials:
   - username: `admin`
