@@ -32,7 +32,7 @@ services:
       - "9001:9000"
     volumes:
       - ./flipt2/flipt.yml:/etc/flipt/config/default.yml
-      - ./flipt2/environments:/data
+      - ./flipt2/data:/data
 
   # --- Flagsmith ---------------------------------------------------------
   flagsmith-postgres:

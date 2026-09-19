@@ -11,3 +11,4 @@ shade
 target
 flagsmith/.terraform
 flipt.db
+flipt2/data

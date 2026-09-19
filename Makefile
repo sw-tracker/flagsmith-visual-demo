@@ -45,6 +45,7 @@ flipt-stop:
 
 # Flipt 2.0 commands
 flipt2-start:
+	sh flipt2/seed.sh
 	docker compose --profile flipt2 up -d
 
 flipt2-stop:

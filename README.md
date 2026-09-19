@@ -60,14 +60,25 @@ make flipt-stop    # docker compose --profile flipt down
 ### Flipt 2.0
 
 Flipt 2.0 replaced the single `features.yml` (namespace + version at the top) with a
-git-native declarative model: one or more **environments**, each backed by a **storage**
-location, containing one directory per **namespace** with its own `features.yaml`. This
-demo uses the `local` storage backend, so `flipt2/environments/<environment>/<namespace>/features.yaml`
-is the source of truth directly (no git repo needed). Server config lives in
-[`flipt2/flipt.yml`](flipt2/flipt.yml).
+git-native model: one or more **environments** (git branches), each backed by a
+**storage** location, containing one directory per **namespace** with its own
+`features.yaml`. Server config lives in [`flipt2/flipt.yml`](flipt2/flipt.yml).
+
+This demo uses the `local` storage backend, which manages its data path as its own git
+repository directly, so *every* flag/segment change - whether from a file or from the UI -
+is a real git commit:
+
+- [`flipt2/seed/default/features.yaml`](flipt2/seed/default/features.yaml) is the
+  human-authored "as code" source (mirrors [`flipt/features.yml`](flipt/features.yml) for v1).
+- `flipt2/seed.sh` (run automatically by `make flipt2-start`) seeds `flipt2/data/` - a
+  gitignored bare git repo, on first run only - by committing the seed onto its `main`
+  branch (which the "production" environment in `flipt2/flipt.yml` points `ref` at).
+  Delete `flipt2/data` to force a reseed from the yaml source.
+- Once running, edits made through the Flipt UI/API are committed straight into
+  `flipt2/data` (inspect with `git -C flipt2/data log --stat`).
 
 ```shell
-make flipt2-start   # docker compose --profile flipt2 up -d
+make flipt2-start   # seeds flipt2/data (first run only), then docker compose --profile flipt2 up -d
 make flipt2-stop    # docker compose --profile flipt2 down
 ```
 
