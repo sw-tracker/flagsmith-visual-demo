@@ -6,8 +6,12 @@ help:
 	@echo "  make j-build    	    - JavaFX App: Build"
 	@echo "  make j-run      			- JavaFX App: Runs one instance of the application"
 	@echo "  make flipt-start     - Flipt: Start Flipt containers"
-	@echo "  make fs-start        - Flagsmith: Initialize Flagsmith containers"
-	@echo "  make unleashed-start	- Unleashed: Start Unleashed containers"
+	@echo "  make flipt-stop      - Flipt: Stop Flipt containers"
+	@echo "  make fs-start        - Flagsmith: Start Flagsmith containers"
+	@echo "  make fs-stop         - Flagsmith: Stop Flagsmith containers"
+	@echo "  make ul-start        - Unleash: Start Unleash containers"
+	@echo "  make ul-stop         - Unleash: Stop Unleash containers"
+	@echo "  make ff-status       - Feature flags: Show status of all running containers"
 	@echo "  make help           	- Show this help message"
 
 # JavaFX App Commands
@@ -25,12 +29,25 @@ j-run:
 
 # Flagsmith commands
 fs-start:
-	cd flagsmith && docker compose up
+	docker compose --profile flagsmith up -d
+
+fs-stop:
+	docker compose --profile flagsmith down
 
 # Flipt commands
 flipt-start:
-	cd flipt && docker compose up
+	docker compose --profile flipt up -d
 
-# Unleashed commands
+flipt-stop:
+	docker compose --profile flipt down
+
+# Unleash commands
 ul-start:
-	cd unleashed && docker compose up
+	docker compose --profile unleash up -d
+
+ul-stop:
+	docker compose --profile unleash down
+
+# Feature flag status (across all profiles)
+ff-status:
+	docker compose --profile flipt --profile flagsmith --profile unleash ps
